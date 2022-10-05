@@ -33,7 +33,7 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/login')
+@app.route("/login")
 def login():
     authentication_request_params = {
         'response_type': 'code',
@@ -64,7 +64,7 @@ def get_access_token(authorization_code:str):
         return response.json()
     raise Exception ('Failed to obtain Access token')
 
-@app.route('/callback')
+@app.route("/callback")
 def callback():
 
     code = request.args.get('code')
@@ -74,10 +74,10 @@ def callback():
 
     #return f"Authentication successful. Access token: {credentials['access_token']}"
 
-    return redirect('/your-music')
+    return redirect("/your-music")
 
 
-@app.route('/your-music')
+@app.route("/your-music")
 def your_music():
     user_profile_url = 'https://api.spotify.com/v1/me?'
     user_top_items_url = 'https://api.spotify.com/v1/me/top/'
