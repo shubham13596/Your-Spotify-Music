@@ -1,0 +1,56 @@
+.topnav{
+    background-color: #222;
+    overflow:hidden;
+}
+
+.topnav-right{
+    float:right;
+    color:#999;
+    text-align:center;
+    padding: 14px 20px;
+    font-size: 17px;
+}
+
+.icons:hover {
+    color:#fff;
+}
+
+
+.topnav a{
+    float: left;
+    color: #999;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 17px;
+}
+
+
+.myIntro{
+    padding: 100px 25px 25px 25px;
+    text-align: left;
+    font-size: 20px;
+    margin-right: 150px;
+}
+
+.myImage{
+    padding: 50px 25px 25px 25px;
+    margin-left: 100px;
+    float: left;
+}
+
+.buttons {
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #54bbff;
+    text-align: center;
+    margin: 4px 2px;
+    border: 2px solid #54bbff;
+    font-size: 15px;
+    padding: 8px 14px;
+    display: inline-block;
+}
+
+.buttons:hover {
+    background-color: #f1f1f1;
+}

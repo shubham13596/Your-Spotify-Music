@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/5.1/ -->
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+        <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+
+        <title>Your Spotify Music</title>
+        <link href="static/styles.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <nav class = "navbar navbar-expand-sm bg-dark navbar-dark">
+            <div class ="container">
+                <a class = "navbar-brand" href = "#"> Your <span class = "brand">Spotify</span> Music </a>
+                <button
+                class = "navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class = "navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                     <!-- li class="nav-item">-->
+                        <!--a class="nav-link active" aria-current="page" href="/about">About</a>
+                      </li>-->
+                    </ul>
+            </div>
+        </nav>
+
+          <div class ="container">
+            <div class ="h2 text-light py-4 px-2 text-sm-start">
+            Hi, {{display_name}} !
+            </div>
+            <div class = "h6 text-light text-muted px-2 text-sm-start fst-italic">
+              Basis your listening activity in the past 6 months, we have compiled these stats from your Top Tracks and Top Artists
+            </div>
+          </div>
+
+          <section class = "text-light px-2 pt-2 text-sm-start">
+            <div class="container">
+              <div class = "stat">
+                <p>The average VALENCE of your top tracks is {{'%0.2f'|format(avg_valence)}} out of a max. value of 1.
+                  {% if avg_valence>0.50 %}
+                  Seems like you listening to happy and joyful songs.
+                    <img src ="static/blush.png" alt ="happy" width = "30" height="30">
+                  {% endif %}
+                </p>
+              </div>
+              <div class ="stat">
+                <p>The average DANCEABILITY of your top tracks is {{'%0.2f'|format(avg_danceability)}} out of a max. value of 1.
+                {% if avg_danceability>0.50 %}
+                  With that playlist, you are ready to hit the dance floor.
+                    <img src ="static/man_dancing.png" alt ="dance" width = "30" height="30">
+                    <img src =" static/dancer.png" alt ="dance" widht ="30" height = "30">
+                {% endif %}
+              </p>
+              </div>
+              <div class ="stat">
+                <p>Most common GENRE of your top artists is {{most_common_genre}}</p>
+              </div>
+              <div class ="stat">
+                <p>The average INSTRUMENTALNESS of your top tracks is {{'%0.4f'|format(avg_instrumentalness)}} out of max. value of 1.</p>
+              </div>
+              <div class ="stat">
+                <p>Amongst your top tracks, {{key_signature}} is the most common KEY SIGNATURE. Learn more about key signatures <a href = "https://en.wikipedia.org/wiki/Key_signature">here. </a> </p>
+              </div>
+            </div>
+          </section>
+
+          <section class = "text-light py-2 px-2 text-sm-start">
+            <div class="container">
+            <h4> Top Artists</h4>
+            </div>
+            <div class = "container py-2">
+                <!---<div class ="d-flex align-items-center px-5 py-2">-->
+                <div class = "row py-2">
+                  {% for artist in artists %}
+                  <div class = "col">
+                    <a href = '{{artist['external_urls'].spotify}}'>
+                      <div class ="cover">
+                        <img src = '{{artist['images'][0].url}}' alt='{{artist.name}}' title='{{artist.name}}'/>
+                      </div>
+                    </a>
+                    <p></p>
+                  </div>
+                  {% endfor %}
+                </div>
+                <p></p>
+                <h4> Top Tracks</h4>
+                <p></p>
+                <div class = "row">
+                  {% for track in tracks %}
+                  <div class = "col">
+                    <a href = '{{track['album']['external_urls'].spotify}}'>
+                      <div class ="cover">
+                        <img src = '{{track['album']['images'][0].url}}' alt='{{track['album'].name}}' title='{{track['album'].name}}'/>
+                      </div>
+                    </a>
+                    <p></p>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+          </div>
+
+        </section>
+
+      </body>
+
+</html>
