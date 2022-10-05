@@ -22,6 +22,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config.from_object("config.ProductionConfig")
 Session(app)
 
+#Additional comments
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
