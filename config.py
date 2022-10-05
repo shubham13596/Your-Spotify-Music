@@ -1,10 +1,5 @@
 import os
 
-class Config:
-    CLIENT_SECRET = os.getenv("SECRET_KEY")
-    CLIENT_ID = os.getenv("CLIENT_ID")
-    REDIRECT_URI = os.getenv("REDIRECT_URI")
-
 class Config(object):
     """Flask base config, specifies general settings."""
 
