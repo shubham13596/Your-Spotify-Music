@@ -37,8 +37,8 @@ def about():
 def login():
     authentication_request_params = {
         'response_type': 'code',
-        'client_id': os.getenv('CLIENT_ID'),
-        'redirect_uri': os.getenv('REDIRECT_URI'),
+        'client_id': app.config.get("CLIENT_ID"),
+        'redirect_uri': app.config.get("REDIRECT_URI"),
         'scope': 'user-read-email user-read-private user-top-read',
         'state': str(uuid.uuid4()),
         'show_dialog': 'true'
@@ -53,9 +53,9 @@ def get_access_token(authorization_code:str):
     body = {
         'grant_type': 'authorization_code',
         'code': authorization_code,
-        'client_id' : os.getenv('CLIENT_ID'),
-        'client_secret': os.getenv('CLIENT_SECRET'),
-        'redirect_uri': os.getenv('REDIRECT_URI')
+        'client_id' : app.config.get("CLIENT_ID"),
+        'client_secret': app.config.get("CLIENT_SECRET"),
+        'redirect_uri': app.config.get("REDIRECT_URI")
     }
 
     response = requests.post(spotify_request_access_token_url, data = body)
