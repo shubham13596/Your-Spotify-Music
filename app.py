@@ -11,6 +11,7 @@ from collections import Counter
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from flask import Flask
+from config import ProductionConfig, DevelopmentConfig
 
 
 # Configure application
@@ -18,12 +19,24 @@ app = Flask(__name__)
 
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
+app.config.from_object("config.ProductionConfig")
 Session(app)
 
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+@app.before_request
+def before_request():
+    """Force HTTPS and set session lifetime before each request."""
+    # https://stackoverflow.com/questions/8436666/how-to-make-python-on-heroku-https-only
+    if "DYNO" in os.environ:
+        if request.url.startswith("http://"):
+            url = request.url.replace("http://", "https://", 1)
+            code = 301
+            return redirect(url, code=code)
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(hours=1)
 
 @app.route("/")
 def index():
@@ -37,8 +50,8 @@ def about():
 def login():
     authentication_request_params = {
         'response_type': 'code',
-        'client_id': app.config.get("CLIENT_ID"),
-        'redirect_uri': app.config.get("REDIRECT_URI"),
+        'client_id': app.config("CLIENT_ID"),
+        'redirect_uri': app.config("REDIRECT_URI"),
         'scope': 'user-read-email user-read-private user-top-read',
         'state': str(uuid.uuid4()),
         'show_dialog': 'true'
@@ -53,9 +66,9 @@ def get_access_token(authorization_code:str):
     body = {
         'grant_type': 'authorization_code',
         'code': authorization_code,
-        'client_id' : app.config.get("CLIENT_ID"),
-        'client_secret': app.config.get("CLIENT_SECRET"),
-        'redirect_uri': app.config.get("REDIRECT_URI")
+        'client_id' : app.config("CLIENT_ID"),
+        'client_secret': app.config("CLIENT_SECRET"),
+        'redirect_uri': app.config("REDIRECT_URI")
     }
 
     response = requests.post(spotify_request_access_token_url, data = body)
