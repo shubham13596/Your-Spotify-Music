@@ -26,18 +26,6 @@ Session(app)
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-@app.before_request
-def before_request():
-    """Force HTTPS and set session lifetime before each request."""
-    # https://stackoverflow.com/questions/8436666/how-to-make-python-on-heroku-https-only
-    if "DYNO" in os.environ:
-        if request.url.startswith("http://"):
-            url = request.url.replace("http://", "https://", 1)
-            code = 301
-            return redirect(url, code=code)
-    session.permanent = True
-    app.permanent_session_lifetime = timedelta(hours=1)
-
 @app.route("/")
 def index():
     return render_template('index.html')
