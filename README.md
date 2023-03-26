@@ -1,4 +1,4 @@
-# PROJECT TITLE : YOUR SPOTIFY MUSIC
+# YOUR SPOTIFY MUSIC
 #### Video Demo:  https://youtu.be/g8EXZ8kEz4Q
 #### Description: 'Your Spotify Music' is a web-app which allows a Spotify to learn more about their listening activity in the past 6 months and understand certain key features of the top artists and tracks they are listening to.
 
